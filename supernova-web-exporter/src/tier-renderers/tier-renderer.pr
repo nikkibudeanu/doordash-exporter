@@ -1,0 +1,13 @@
+{[ const collectionAndMode = separateThemeName(context.themeName) /]}
+{[ const tsFilePath = generateFileName(collectionAndMode[0], collectionAndMode[1], context.tier, context.tokenType.prismTokenType) /]}
+{[ emit file tsFilePath ]}
+// --------------------------------------------------------
+// THIS IS A FILE GENERATED VIA SUPERNOVA.
+// IT IS NOT INTENDED FOR EDITING.
+// --------------------------------------------------------
+
+{[ const tokenOutput = createTokenObject(context.tokens, context.tokenType.prismTokenType) /]}
+const {{context.tokenType.prismTokenType}}Tokens = {{ tokenOutput }}
+
+export default {{context.tokenType.prismTokenType}}Tokens
+{[/]}

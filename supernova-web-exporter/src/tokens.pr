@@ -1,0 +1,45 @@
+{* 
+    This is the starting point for generating all tokens for all themes.
+ *}
+
+{[ let brand = ds.currentBrand() /]}
+{[ const tokens = ds.allTokens(brand.id) /]}
+{[ const themes = ds.allThemes(brand.id) /]}
+
+{[ for theme in themes ]}
+  {[ const themeTokens = getThemeTokens(theme) /]}
+  {[ const themeContext = generateContextObject(theme.name, themeTokens) /]}
+  {[ inject "render-tokens" context themeContext /]}
+  {[ inject "render-index-files" context themeContext /]}
+{[/]}
+
+{[ const defaultContext = generateContextObject('Default', tokens) /]}
+{[ inject "render-tokens" context defaultContext /]}
+{[ inject "render-index-files" context defaultContext /]}
+
+{[ const collections = generateThemeCollections(themes) /]}
+{[ for collection in collections ]}
+  {[ const tsFilePath = generateFileName(collection.name, 'index') /]}
+  {[ emit file tsFilePath ]}
+// --------------------------------------------------------
+// THIS IS A FILE GENERATED VIA SUPERNOVA.
+// IT IS NOT INTENDED FOR EDITING.
+// --------------------------------------------------------
+{[for mode in collection.modes]}
+import {{mode.name}} from './{{mode.path}}'
+{[/]}
+  
+const {{collection.name}}Collection = {
+  {[for mode in collection.modes]}
+  {{mode.path}}: {{mode.name}},
+  {[/]}
+}
+
+export {
+  {{collection.name}}Collection,
+  {[for mode in collection.modes]}
+  {{mode.name}},
+  {[/]}
+}
+  {[/]}
+{[/]}

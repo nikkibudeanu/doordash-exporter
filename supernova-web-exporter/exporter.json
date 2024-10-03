@@ -1,0 +1,22 @@
+{
+  "id": "doordash.prism.web",
+  "name": "Prism Web Tokens",
+  "description": "Token exporter for Prism Web",
+  "source_dir": "src",
+  "version": "1.0.0-beta.1",
+  "tags": ["Prism", "Prism Web", "DoorDash", "Tokens"],
+  "author": "Design Infrastructure",
+  "organization": "DoorDash",
+  "homepage": "https://prism.doordash.com",
+  "usesBrands": true,
+  "usesThemes": true,
+  "config": {
+    "output": "output.json",
+    "sources": "sources.json",
+    "js": "src/js/helpers.js"
+  },
+  "engines": {
+    "pulsar": "1.0.0",
+    "supernova": "1.0.0"
+  }
+}

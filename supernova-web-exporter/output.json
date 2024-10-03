@@ -1,0 +1,8 @@
+{
+  "blueprints": [
+    {
+      "invoke": "tokens.pr",
+      "emit_only": true
+    }
+  ]
+}

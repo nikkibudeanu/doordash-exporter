@@ -1,0 +1,24 @@
+{
+    "blueprints": [{
+        "invoke": "icon_definitions.pr",
+        "write_to": "",
+        "emit_only": true,
+        "comment": "Create a listing of all icons and metadata, with files broken out by brand."
+    },
+    {
+        "invoke": "icon_test_svg_map.pr",
+        "write_to": "iconTestSvgMap.ts",
+        "comment": "Object mapping names to their full components."
+    },
+    {
+        "invoke": "all_icon_definitions.pr",
+        "write_to": "allIconDefinitions.ts",
+        "comment": "Create a file with all to combine all def files."
+    }],
+    "assets": [{
+        "write_using": "asset_path.pr",
+        "scale": "1x",
+        "format": "svg",
+        "type": "image"
+    }]
+}

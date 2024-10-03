@@ -1,0 +1,13 @@
+{* 
+    This blueprint is used for each theme to render all token types.
+    It is powered by an object within helpers.js called "SupernovaTokenTypeMap",
+    and is instantiated by the tokens.pr blueprint.
+ *}
+
+ {[ const tokenTypes = getTokenTypes() /]}
+
+ {[ for tokenType in tokenTypes ]}
+    {[ const themeTokens = getThemeTokens(context.tokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+    {[ const themeContext = generateContextObject(context.themeName, themeTokens, undefined, tokenType) /]}
+    {[ inject "render-tiers" context themeContext /]}
+ {[/]}

@@ -1,0 +1,45 @@
+{[ let brand = ds.currentBrand() /]}
+{[ let assetGroups = ds.allAssetGroups(brand.id) /]}
+{[ let resolvedAssetGroups = [] /]}
+{[ for group in assetGroups ]}
+    {[ if (group.name.contains("Icons")) ]}
+        {[ for subgroup in group.subgroups ]}
+            {[ let resolvedAssets = [] /]}
+            {[ for assetId in subgroup.assetIds ]}
+                {[ let asset = ds.assetById(assetId) /]}
+                {[ resolvedAssets = resolvedAssets.append(asset) /]}
+            {[/]}
+            {[ if (resolvedAssets.count() > 0) ]}
+                {[ resolvedAssetGroups = resolvedAssetGroups.append({ "groupName": group.name, "icons": resolvedAssets }) /]}
+            {[/]}
+        {[/]}
+    {[/]}
+{[/]}
+{[ let availableIconSets = getAvailableIcons(resolvedAssetGroups) /]}
+// --------------------------------------------------------
+// THIS IS A FILE GENERATED VIA SUPERNOVA.
+// --------------------------------------------------------
+{[ for iconSet in availableIconSets ]}
+{[ for icon in iconSet.icons ]}
+{[ for size in icon.sizes ]}
+import {{ icon.name }}{{size}}{{iconSet.iconDirectory.capitalized()}} from './{{ iconSet.iconDirectory }}/{{size}}/{{ icon.fileName }}.svg'
+{[/]}
+{[/]}
+{[/]}
+
+export const iconsMap = [
+{[ for iconSet in availableIconSets ]}
+    {
+        iconSetName: '{{ iconSet.iconDirectory }}',
+        icons: {
+            {[ for icon in iconSet.icons ]}
+            {{ icon.name }} : [
+                {[ for size in icon.sizes ]}
+                {{ icon.name }}{{size}}{{iconSet.iconDirectory.capitalized()}},
+                {[/]}
+            ],
+            {[/]}
+        }
+    },
+{[/]}
+]

@@ -1,0 +1,18 @@
+{[ const baseTokens = getTokensForTier(context.tokens, 'base') /]}
+{[ if baseTokens.length > 0 ]}
+  {[ const baseContext = generateContextObject(context.themeName, baseTokens, 'base', context.tokenType) /]}
+  {[ inject "tier-renderer" context baseContext /]}
+{[/]}
+
+
+{[ const usageTokens = getTokensForTier(context.tokens, 'usage') /]}
+{[ if usageTokens.length > 0 ]}
+  {[ const usageContext = generateContextObject(context.themeName, usageTokens, 'usage', context.tokenType) /]}
+  {[ inject "tier-renderer" context usageContext /]}
+{[/]}
+
+{[ const compTokens = getTokensForTier(context.tokens, 'comp') /]}
+{[ if compTokens.length > 0 ]}
+  {[ const compContext = generateContextObject(context.themeName, compTokens, 'comp', context.tokenType) /]}
+  {[ inject "tier-renderer" context compContext /]}
+{[/]}

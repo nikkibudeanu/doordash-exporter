@@ -1,0 +1,54 @@
+{* 
+    This blueprint creates the index files for each tier for a theme.
+    It works by looking at the tokens available within the theme, and then
+    creates an index file within each tier sub-directory that contains the
+    imports for each token type, and exports an object containing all the
+    token types within that tier for that theme.
+ *}
+
+{[ const tiersInTheme = getTiersInTheme(context.tokens) /]}
+
+{[ for tier in tiersInTheme ]}
+{[ const tierTokenTypes = tier[1] /]}
+{[ const tierName = tier[0] /]}
+{[ const collectionAndMode = separateThemeName(context.themeName) /]}
+{[ const tierIndexFilePath = generateFileName(collectionAndMode[0], collectionAndMode[1], tierName, 'index') /]}
+{[ emit file tierIndexFilePath ]}
+// --------------------------------------------------------
+// THIS IS A FILE GENERATED VIA SUPERNOVA.
+// IT IS NOT INTENDED FOR EDITING.
+// --------------------------------------------------------
+{[ for tokenType in tierTokenTypes ]}
+import {{tokenType}} from './{{tokenType}}'
+{[/]}
+
+const {{tierName}}Tokens = {
+    {[ for tokenType in tierTokenTypes ]}
+    {{ tokenType }},
+    {[/]}
+}
+
+export default {{tierName}}Tokens
+{[/]}
+{[/]}
+
+{[ const collectionAndMode = separateThemeName(context.themeName) /]}
+{[ emit file generateFileName(collectionAndMode[0], collectionAndMode[1], 'index') ]}
+// --------------------------------------------------------
+// THIS IS A FILE GENERATED VIA SUPERNOVA.
+// IT IS NOT INTENDED FOR EDITING.
+// --------------------------------------------------------
+{[ for tier in tiersInTheme ]}
+{[ const tierName = tier[0] /]}
+import {{tierName}} from './{{tierName}}'
+{[/]}
+
+const {{context.themeName}}Tokens = {
+    {[ for tier in tiersInTheme ]}
+    {[ const tierName = tier[0] /]}
+    {{tierName}},
+    {[/]}
+}
+
+export default {{context.themeName}}Tokens
+{[/]}
