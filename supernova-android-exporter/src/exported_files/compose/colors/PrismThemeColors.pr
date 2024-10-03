@@ -1,0 +1,31 @@
+{[ let tokenTypes = getTokenTypes() /]}
+{[ tokenTypes = sortTokenTypes(tokenTypes) /]}
+
+{[ let brand = ds.currentBrand() /]}
+{[ const themeIds = getThemeIds(context.themeId) /]}
+{[ let allTokens = ds.allTokensByApplyingThemes(brand.id, themeIds) /]}
+
+{[ let colorFilePath = generateComposeThemeColorsFilePath(context.themeName) /]}
+{[ emit file colorFilePath ]}
+package com.doordash.android.prism.compose.foundation.color
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.ui.graphics.Color
+
+/**
+ * The complete color palette for Prism theme's {{ pascalcase(context.themeName) }} variant in light mode.
+ */
+val {{ pascalcase(context.themeName) }}Colors = object : {{ getComposeParentColorClass() }} {
+    {[ const newLine = "\n" /]}
+    override val isLight = {{ !context.themeName.contains("Dark") }}{{ newLine }}
+{[ for tokenType in tokenTypes ]}
+  {[ const themeTokensForType = getThemeTokens(allTokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+  {[ const themeContextForType = generateContextObject(context.themeName, themeTokensForType, undefined, tokenType) /]}
+  {[ if (tokenType.prismTokenType === "color") ]}
+    {[ const tokenOutput = createComposeThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+    {{ tokenOutput }}
+  {[/]}
+{[/]}
+}
+{[/]}

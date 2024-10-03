@@ -1,0 +1,120 @@
+@file:Suppress("MaxLineLength", "LongMethod", "ComplexMethod")
+
+package com.doordash.android.prism.compose.foundation.color
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.structuralEqualityPolicy
+
+/**
+ * The Prism color system holding the color value that is currently assigned to the color semantic.
+ *
+ * Since the PrismColors's colors are internally backed by [mutableStateOf], this means that any changes
+ * to the color members will mutate the internal state of [this], and only cause composables that
+ * are reading the specific changed value to recompose.
+ *
+ * @param palette The color palette to initialize the colors from.
+ *
+ * @see updateColorsFrom
+ */
+@Stable
+class PrismColors(palette: PrismPalette) {
+{[ const brand = ds.currentBrand() /]}
+{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = camelcase(arrayJoin(validTokenPath, " ")) /]}
+    {[ const internal = internalOrBlank(colorTokenGroup) /]}
+    {[ const internalSetOrBlank = internalSetOrBlank(colorTokenGroup) /]}
+    {{ internal }}{{ validTokenName }} by mutableStateOf(palette.{{ validTokenName }}, structuralEqualityPolicy())
+    {{ internalSetOrBlank }}
+  {[/]}
+{[/]}
+    var isLight: Boolean by mutableStateOf(palette.isLight, structuralEqualityPolicy())
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PrismColors) return false
+
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = camelcase(arrayJoin(validTokenPath, " ")) /]}
+        if ({{ validTokenName }} != other.{{ validTokenName }}) return false
+  {[/]}
+{[/]}
+        if (isLight != other.isLight) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = 0
+
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = camelcase(arrayJoin(validTokenPath, " ")) /]}
+        result = 31 * result + {{ validTokenName }}.hashCode()
+  {[/]}
+{[/]}
+        result = 31 * result + isLight.hashCode()
+        return result
+    }
+}
+
+/**
+ * Creates a copy of [this] PrismColors.
+ */
+fun PrismColors.copy(): PrismColors {
+    val result = PrismColors(DefaultColors)
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = camelcase(arrayJoin(validTokenPath, " ")) /]}
+    result.{{ validTokenName }} = this.{{ validTokenName }}
+  {[/]}
+{[/]}
+    result.isLight = this.isLight
+    return result
+}
+
+/**
+ * Updates the internal values of the given [PrismColors] with values from the [other] [PrismColors].
+ *
+ * Since PrismTheme's Colors is internally backed by [mutableStateOf], calling this function
+ * will mutate the internal state of [this] to match values in [other].
+ *
+ * @see copy
+ * @see androidx.compose.material.Colors.updateColorsFrom
+ */
+internal fun PrismColors.updateColorsFrom(other: PrismColors) {
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = camelcase(arrayJoin(validTokenPath, " ")) /]}
+    {{ validTokenName }} = other.{{ validTokenName }}
+  {[/]}
+{[/]}
+    isLight = other.isLight
+}

@@ -1,0 +1,59 @@
+<html>
+  <script src="https://unpkg.com/file-saver/dist/FileSaver.min.js"></script>
+  <!--<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>-->
+  <script>
+  // from https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6#gistcomment-3585151
+  const merge = (target, source) => {
+    const result = {...target,...source}
+    const keys = Object.keys(result)
+    
+    for (const key of keys) {
+      const tprop = target[key]
+      const sprop = source[key]
+      if (typeof(tprop) == 'object' && typeof(sprop) == 'object') {
+        result[key] = merge(tprop, sprop)
+      }
+    }
+    return result
+  }
+
+  var outputForUI = {}
+
+  onmessage = (event) => outputForUI = JSON.parse(event.data.pluginMessage)
+
+  onsave = (event) => {
+    const json = JSON.stringify(outputForUI.json, null, 2)
+    const file = new File([json], outputForUI.fileName, {type: "application/json;charset=utf-8"})
+    saveAs(file)
+  }
+
+  onmerge = (event) => {
+    const theme1 = document.getElementById("theme1").files[0];
+    const theme2 = document.getElementById("theme2").files[0];
+    //const theme3 = document.getElementById("theme3").files[0];
+
+    const fileReader1 = new FileReader()
+    fileReader1.onload = () => fileReader2.readAsText(theme2)
+    fileReader1.readAsText(theme1)
+
+    const fileReader2 = new FileReader()
+    fileReader2.onload = (event) => {
+      const merged = merge(JSON.parse(event.target.result), JSON.parse(fileReader1.result))
+      const json = JSON.stringify(merged, null, 2)
+      const file = new File([json], `typography-tokens-${outputForUI.themeName}-merged.json`, {type: "application/json;charset=utf-8"})
+      saveAs(file)
+    }
+  }
+
+  </script>  
+  <body>
+    <button onclick="onsave()">Export Theme Definitions</button>
+
+    <h3>Merge Theme Definitions</h3>
+    Theme 1: <input type="file" id="theme1" /><br />
+    Theme 2: <input type="file" id="theme2" /><br />
+    <!--<input type="file" id="theme3" /><br />-->
+    <br />
+    <button onclick="onmerge()">Merge</button>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+package com.doordash.android.prism.compose.foundation.typography
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.structuralEqualityPolicy
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+
+/**
+ * The Prism typography system is a combination of generic and component text styles. Provide the
+ * text style definitions in order to create a complete typography definition for a Prism theme variant.
+ */
+@Immutable
+class PrismTypography(textStyles: PrismTextStyles) {
+    {[ const brand = ds.currentBrand() /]}
+    {[ const typographyTokensTree = ds.tokenGroupTreeByType("Typography", brand.id) /]}
+    {[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+        {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+            {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+            {[ for typographyToken in typographyTokenInGroups ]}
+                {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+                {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+                {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+                {[ const textStyleName = camelcase(validTokenName) /]}
+                {[ const internal = internalOrBlank(typographyTokenGroup) /]}
+                {[ const internalSetOrBlank = internalSetOrBlank(typographyTokenGroup) /]}
+    {{ internal }}{{ textStyleName }} by mutableStateOf(textStyles.{{ textStyleName }}, structuralEqualityPolicy())
+    {{ internalSetOrBlank }}
+        {[/]}
+    {[/]}
+
+    /**
+     * Applies the given [fontFamily] to all text styles in this typography.
+     * @param fontFamily The font family to apply.
+     */
+    fun applyFontFamily(fontFamily: FontFamily) {
+    {[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+        {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+            {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+            {[ for typographyToken in typographyTokenInGroups ]}
+                {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+                {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+                {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+                {[ const textStyleName = camelcase(validTokenName) /]}
+        {{ textStyleName }} = {{ textStyleName }}.copy(fontFamily = fontFamily)
+        {[/]}
+    {[/]}
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PrismTypography) return false
+
+        {[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+        {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+            {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+            {[ for typographyToken in typographyTokenInGroups ]}
+                {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+                {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+                {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+        if ({{ camelcase(validTokenName) }} != other.{{ camelcase(validTokenName) }}) return false
+            {[/]}
+        {[/]}
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = 0
+        {[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+        {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+            {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+            {[ for typographyToken in typographyTokenInGroups ]}
+                {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+                {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+                {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+        result = 31 * result + {{ camelcase(validTokenName) }}.hashCode()
+            {[/]}
+        {[/]}
+        return result
+    }
+}
+
+/**
+ * Creates a copy of [this] PrismTypography.
+ */
+fun PrismTypography.copy(): PrismTypography {
+    val result = PrismTypography(DefaultTypography)
+    {[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+        {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+            {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+            {[ for typographyToken in typographyTokenInGroups ]}
+                {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+                {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+                {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+                {[ const textStyleName = camelcase(validTokenName) /]}
+    result.{{ textStyleName }} = this.{{ textStyleName }}
+        {[/]}
+    {[/]}
+    return result
+}
+
+/**
+ * Updates the internal values of the given [PrismTypography] with values from the [other] [PrismTypography].
+ *
+ * Since PrismTheme's Typography is internally backed by [mutableStateOf], calling this function
+ * will mutate the internal state of [this] to match values in [other].
+ *
+ * @see copy
+ * @see androidx.compose.material.Colors.updateColorsFrom
+ */
+internal fun PrismTypography.updateTextStylesFrom(other: PrismTypography) {
+    {[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+        {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+            {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+            {[ for typographyToken in typographyTokenInGroups ]}
+                {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+                {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+                {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+                {[ const textStyleName = camelcase(validTokenName) /]}
+    {{ textStyleName }} = other.{{ textStyleName }}
+        {[/]}
+    {[/]}
+}

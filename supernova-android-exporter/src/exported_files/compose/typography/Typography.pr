@@ -1,0 +1,50 @@
+{[ const tokenTypes = getTokenTypes() /]}
+{[ if (!isDarkTheme(context.themeName)) ]}
+  {[ let defaultThemeFilePath = generateComposeTextStyleFilePath(context.themeName) /]}
+  {[ emit file defaultThemeFilePath ]}
+package com.doordash.android.prism.compose.foundation.typography
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
+
+/**
+ * The complete typography definitions for Prism theme's {{ pascalcase(context.themeName) }} variant.
+ */
+val {{ pascalcase(context.themeName) }}Typography = object : {{ getTypographyForTheme(context.themeName) }} {
+    {[ for tokenType in tokenTypes ]}
+        {[ const themeTokensForType = getThemeTokens(context.tokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+        {[ const themeContextForType = generateContextObject(context.themeName, themeTokensForType, undefined, tokenType) /]}
+        {[ if (tokenType.prismTokenType === "type") ]}
+          {[ for token in themeContextForType.tokens ]}
+    override val {{ getComposeTextStyleName(token) }} = TextStyle(
+        fontSize = {{ token.value.fontSize.measure }}.sp,
+        {[ const font = token.value.font /]}
+          {[ if font ]}
+            {[ let familyName = removeSpaces(pascalcase(font.family)) /]}
+            {[ let subfamilyName = pascalcase(font.subfamily)  /]}
+            {[ if (subfamilyName === "Regular") ]}
+            {[ subfamilyName = "Normal" /]}
+            {[/]}
+            {[ let fontName = familyName.suffixed("_").suffixed(subfamilyName) /]}
+        fontFamily = {{ familyName }}Family,
+        fontWeight = FontWeight.{{ subfamilyName }},
+          {[/]}
+        {[ const lineHeight = token.value.lineHeight /]}
+          {[ if lineHeight ]}
+        lineHeight = {{ lineHeight.measure }}.sp,
+          {[/]}
+        {[ const letterSpacing = token.value.letterSpacing /]}
+          {[ if letterSpacing ]}
+        letterSpacing = ({{ letterSpacing.measure / token.value.fontSize.measure }}).em,
+          {[/]}
+    )
+          {[/]}
+        {[/]}
+    {[/]}
+}
+  {[/]}
+{[/]}

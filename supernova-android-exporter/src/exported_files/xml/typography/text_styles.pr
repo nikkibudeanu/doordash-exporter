@@ -1,0 +1,38 @@
+{[ const tokenTypes = getTokenTypes() /]}
+
+{[ if (!isDarkTheme(context.themeName)) ]}
+  {[ let defaultThemeFilePath = generateTextStyleFilePath(context.themeName) /]}
+  {[ emit file defaultThemeFilePath ]}
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+    {[ for tokenType in tokenTypes ]}
+        {[ const themeTokensForType = getThemeTokens(context.tokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+        {[ const themeContextForType = generateContextObject(context.themeName, themeTokensForType, undefined, tokenType) /]}
+        {[ if (tokenType.prismTokenType === "type") ]}
+          {[ for token in themeContextForType.tokens ]}
+    <style name="{{ getTextStyleResourceId(token, context.themeName) }}" parent="Base.TextAppearance.DoorDash">
+        <item name="android:textSize">{{ token.value.fontSize.measure }}sp</item>
+          {[ const letterSpacing = token.value.letterSpacing /]}
+          {[ if letterSpacing ]}
+        <item name="android:letterSpacing">{{ letterSpacing.measure / token.value.fontSize.measure }}</item>
+          {[/]}
+          {[ const lineHeight = token.value.lineHeight /]}
+          {[ if lineHeight ]}
+        <item name="lineHeight">{{ lineHeight.measure }}sp</item>
+          {[/]}
+          {[ const font = token.value.font /]}
+          {[ if font ]}
+            {[ let familyName = removeSpaces(font.family.lowercased()) /]}
+            {[ let subfamilyName = font.subfamily.snakecased()  /]}
+            {[ let fontName = familyName.suffixed("_").suffixed(subfamilyName) /]}
+        <item name="android:fontFamily">@font/{{ fontName }}</item>
+        <item name="fontFamily">@font/{{ fontName }}</item>
+          {[/]}
+    </style>
+          {[/]}
+        {[/]}
+    {[/]}
+</resources>
+  {[/]}
+{[/]}

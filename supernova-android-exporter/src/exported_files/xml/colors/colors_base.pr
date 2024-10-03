@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+{[ const brand = ds.currentBrand() /]}
+{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ if (isBaseToken(colorTokenGroup)) ]}
+    {[ let validTokenGroupPath = createNamedTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, colorToken.name) /]}
+      {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+      {[ if (colorToken.description && colorToken.description !== "") ]}
+      <!-- 
+          {{ indentMultilineText(colorToken.description, "        ") }} 
+      -->
+      {[/]}
+    <color name="{[ inject "export_snakecased_token_name" context validTokenName /]}">{{ getTokenValue(colorToken, "color", brand.name) }}</color>
+      {[/]}
+  {[/]}
+{[/]}
+</resources>

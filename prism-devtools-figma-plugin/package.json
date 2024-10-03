@@ -1,0 +1,31 @@
+{
+  "name": "prism-devtools-figma-plugin",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Prism DevTools",
+  "main": "dist/code.js",
+  "scripts": {
+    "development": "npx webpack --mode=development --watch",
+    "build-package": "tsc -p tsconfig.json",
+    "build-mjs": "mv src/lib.js src/lib.mjs && mv src/tokens.js src/tokens.mjs && rm src/*.js",
+    "build": "yarn build-package && yarn build-mjs && yarn exec webpack --mode=production"
+  },
+  "author": "Owen van Dijk <owen.vandijk@doordash.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "css-loader": "^5.2.6",
+    "html-loader": "^1.3.2",
+    "html-webpack-plugin": "^5.3.1",
+    "postcss": "^8.2.10",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.3.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.19.0",
+    "ssri": "^8.0.1"
+  }
+}

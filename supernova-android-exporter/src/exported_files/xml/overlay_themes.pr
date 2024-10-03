@@ -1,0 +1,25 @@
+{[ let tokenTypes = getTokenTypes() /]}
+{[ tokenTypes = sortTokenTypes(tokenTypes) /]}
+
+{[ let brand = ds.currentBrand() /]}
+{[ const themeIds = getThemeIds(context.themeId) /]}
+{[ let allTokens = ds.allTokensByApplyingThemes(brand.id, themeIds) /]}
+
+{[ let defaultThemeFilePath = generateOverlayThemeFilePath(context.themeName) /]}
+{[ emit file defaultThemeFilePath ]}
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+    <style name="{{ getOverlayThemeResourceId(context.themeName) }}" parent="{{ getParentOverlayThemeResourceId(context.themeName) }}">
+  {[ for tokenType in tokenTypes ]}
+      {[ const themeTokensForType = getThemeTokens(allTokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+      {[ const themeContextForType = generateContextObject(context.themeName, themeTokensForType, undefined, tokenType) /]}
+      {[ if (tokenType.prismTokenType === "color") ]}
+        <!-- {{ tokenType.supernovaTokenType }} -->
+        {[ const tokenOutput = createOverlayThemeEntries(themeContextForType.tokens) /]}
+        {{ tokenOutput }}
+      {[/]}
+  {[/]}
+    </style>
+</resources>
+{[/]}

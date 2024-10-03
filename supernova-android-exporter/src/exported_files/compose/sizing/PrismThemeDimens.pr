@@ -1,0 +1,26 @@
+{[ let tokenTypes = getTokenTypes() /]}
+{[ tokenTypes = sortTokenTypes(tokenTypes) /]}
+{[ if (!isDarkTheme(context.themeName)) ]}
+    {[ let colorFilePath = generateDimensFilePath(context.themeName) /]}
+    {[ emit file colorFilePath ]}
+package com.doordash.android.prism.compose.foundation.dimens
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.ui.unit.dp
+
+/**
+ * The complete color palette for Prism theme's {{ pascalcase(context.themeName) }} variant in light mode.
+ */
+val {{ pascalcase(context.themeName) }}Dimens = object : {{ getComposeParentDimensClass(context.themeName) }} {
+    {[ for tokenType in tokenTypes ]}
+        {[ const themeTokensForType = getThemeTokens(context.tokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+        {[ const themeContextForType = generateContextObject(context.themeName, themeTokensForType, undefined, tokenType) /]}
+        {[ if (tokenType.prismTokenType === "sizing" || tokenType.prismTokenType === "spacing" || tokenType.prismTokenType === "borderRadius" || tokenType.prismTokenType === "borderWidth" || tokenType.prismTokenType === "fontSize" || tokenType.prismTokenType === "elevation") ]}
+            {[ const tokenOutput = createComposeThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+    {{ tokenOutput }}
+            {[/]}
+    {[/]}
+}
+{[/]}
+{[/]}

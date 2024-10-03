@@ -1,0 +1,21 @@
+{[ let brand = ds.currentBrand() /]}
+{[ const tokens = ds.allTokens(brand.id) /]}
+{[ const themes = ds.allThemes(brand.id) /]}
+
+{* Export the default theme *}
+{[ const defaultContext = generateContextObject("Default", tokens) /]}
+{[ inject "PrismThemeColors" context defaultContext /]}
+{[ inject "Typography" context defaultContext /]}
+{[ inject "PrismThemeDimens" context defaultContext /]}
+
+{* Export all the remaining supported themes *}
+{[ for theme in themes ]}
+  {[ log [theme.name] /]}
+  {[ if (isThemeSupported(theme.name)) ]}
+    {[ const themeTokens = getThemeTokens(theme) /]}
+    {[ const themeContext = generateContextObject(theme.name, themeTokens, undefined, undefined, theme.id) /]}
+    {[ inject "PrismThemeColors" context themeContext /]}
+    {[ inject "Typography" context themeContext /]}
+    {[ inject "PrismThemeDimens" context themeContext /]}
+  {[/]}
+{[/]}

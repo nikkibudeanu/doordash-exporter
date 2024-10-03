@@ -1,0 +1,26 @@
+package com.doordash.android.prism.compose.foundation.color
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.ui.graphics.Color
+
+/**
+ * The Prism color system's semantic color names. Implement this interface and provide the
+ * color values in order to create a complete color palette for a Prism theme variant
+ * and light/dark mode combination.
+ */
+interface PrismPalette {
+{[ const brand = ds.currentBrand() /]}
+{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+  {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+  {[ for colorToken in colorTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+    val {{ camelcase(validTokenName) }}: Color
+  {[/]}
+{[/]}
+    val isLight: Boolean
+}

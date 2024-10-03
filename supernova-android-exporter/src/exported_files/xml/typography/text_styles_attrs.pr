@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+{[ const brand = ds.currentBrand() /]}
+{[ const typographyTokensTree = ds.tokenGroupTreeByType("Typography", brand.id) /]}
+{[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+    {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+    {[ for typographyToken in typographyTokenInGroups ]}
+      {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+      {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+    <attr name="{{ camelcase(validTokenName) }}" format="reference"/>
+  {[/]}
+{[/]}
+</resources>

@@ -1,0 +1,20 @@
+{[ let brand = ds.currentBrand() /]}
+{[ const tokens = ds.allTokens(brand.id) /]}
+{[ const themes = ds.allThemes(brand.id) /]}
+
+{* Export the default theme *}
+{[ const defaultContext = generateContextObject("Default", tokens) /]}
+{[ inject "themes" context defaultContext /]}
+{[ inject "overlay_themes" context defaultContext /]}
+{[ inject "text_styles" context defaultContext /]}
+
+{* Export all the remaining supported themes *}
+{[ for theme in themes ]}
+  {[ if (isThemeSupported(theme.name)) ]}
+    {[ const themeTokens = getThemeTokens(theme) /]}
+    {[ const themeContext = generateContextObject(theme.name, themeTokens, undefined, undefined, theme.id) /]}
+    {[ inject "themes" context themeContext /]}
+    {[ inject "overlay_themes" context themeContext /]}
+    {[ inject "text_styles" context themeContext /]}
+  {[/]}
+{[/]}

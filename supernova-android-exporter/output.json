@@ -1,0 +1,52 @@
+{
+    "blueprints": [
+        {
+            "invoke": "colors_attrs.pr",
+            "write_to": "dls/src/main/kotlin/com/doordash/android/dls/foundation/res/values/colors-attrs-generated.xml"
+        },
+        {
+            "invoke": "dimens_attrs.pr",
+            "write_to": "dls/src/main/kotlin/com/doordash/android/dls/foundation/res/values/sizing-attrs-generated.xml"
+        },
+        {
+            "invoke": "text_styles_attrs.pr",
+            "write_to": "dls/src/main/kotlin/com/doordash/android/dls/foundation/res/values/text-styles-attrs-generated.xml"
+        },
+        {
+            "invoke": "public_attrs.pr",
+            "write_to": "dls/src/main/kotlin/com/doordash/android/dls/foundation/res-public/values/public-generated.xml"
+        },
+        {
+            "invoke": "main.pr",
+            "emit_only": true
+        },
+        {
+            "invoke": "ComposeMain.pr",
+            "emit_only": true
+        },
+        {
+            "invoke": "PrismPalette.pr",
+            "write_to": "prism-compose/src/main/kotlin/com/doordash/android/prism/compose/foundation/color/PrismPalette.kt"
+        },
+        {
+            "invoke": "PrismColors.pr",
+            "write_to": "prism-compose/src/main/kotlin/com/doordash/android/prism/compose/foundation/color/PrismColors.kt"
+        },
+        {
+            "invoke": "PrismTextStyles.pr",
+            "write_to": "prism-compose/src/main/kotlin/com/doordash/android/prism/compose/foundation/typography/PrismTextStyles.kt"
+        },
+        {
+            "invoke": "PrismTypography.pr",
+            "write_to": "prism-compose/src/main/kotlin/com/doordash/android/prism/compose/foundation/typography/PrismTypography.kt"
+        },
+        {
+            "invoke": "PrismDimensInterface.pr",
+            "write_to": "prism-compose/src/main/kotlin/com/doordash/android/prism/compose/foundation/dimens/PrismDimensInterface.kt"
+        },
+        {
+            "invoke": "PrismDimens.pr",
+            "write_to": "prism-compose/src/main/kotlin/com/doordash/android/prism/compose/foundation/dimens/PrismDimens.kt"
+        }
+    ]
+}

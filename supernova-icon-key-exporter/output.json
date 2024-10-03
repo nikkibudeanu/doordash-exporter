@@ -1,0 +1,9 @@
+{
+  "blueprints": [
+    {
+      "invoke": "icon_keys.pr",
+      "write_to": "icon_keys.ts",
+      "comment": "Create a listing of all icon component keys."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+package com.doordash.android.prism.compose.foundation.typography
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.ui.text.TextStyle
+
+/**
+ * The Prism typography system's semantic typography names. Implement this interface and provide the
+ * typography values in order to create a complete typography palette for a Prism theme variant.
+ */
+interface PrismTextStyles {
+{[ const brand = ds.currentBrand() /]}
+{[ const typographyTokensTree = ds.tokenGroupTreeByType("Typography", brand.id) /]}
+{[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+  {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+  {[ for typographyToken in typographyTokenInGroups ]}
+    {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+    {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+    {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+    val {{ camelcase(validTokenName) }}: TextStyle
+  {[/]}
+{[/]}
+}

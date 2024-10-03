@@ -1,0 +1,21 @@
+{
+  "id": "com.doordash.web-icon-exporter",
+  "name": "Prism Icon Key Generator",
+  "description": "Creates a list of all the Icon keys in our library for use in our codegen plugins.",
+  "author": "DoorDash",
+  "organization": "DoorDash",
+  "homepage": "https://doordash.com",
+  "source_dir": "src",
+  "version": "0.0.1",
+  "usesBrands": true,
+  "config": {
+    "sources": "sources.json",
+    "output": "output.json",
+    "js": "src/js/helpers.js"
+  },
+  "engines": {
+    "pulsar": "1.0.0",
+    "supernova": "1.0.0"
+  },
+  "tags": ["Assets", "SVG", "Icons"]
+}

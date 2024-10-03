@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+{[ const brand = ds.currentBrand() /]}
+{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+      {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+    <attr name="{{ camelcase(validTokenName) }}" format="color"/>
+  {[/]}
+{[/]}
+</resources>

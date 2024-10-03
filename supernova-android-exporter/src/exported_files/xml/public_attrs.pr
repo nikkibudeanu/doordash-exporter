@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+    <!-- Color -->
+{[ const brand = ds.currentBrand() /]}
+{[ const colorTokensTree = ds.tokenGroupTreeByType("Color", brand.id) /]}
+{[ traverse colorTokensTree property subgroups into colorTokenGroup ]}
+  {[ if (isUsageToken(colorTokenGroup)) ]}
+    {[ let validTokenGroupPath = createFullTokenGroupPath(colorTokenGroup) /]}
+    {[ const colorTokenInGroups = ds.tokensByGroupId(colorTokenGroup.id) /]}
+    {[ for colorToken in colorTokenInGroups ]}
+      {[ const camelcaseName = kebabToCamelCase(colorToken.name) /]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+      {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+    <public name="{{ camelcase(validTokenName) }}" type="attr"/>
+    {[/]}
+  {[/]}
+{[/]}
+
+    <!-- Typography -->
+{[ const typographyTokensTree = ds.tokenGroupTreeByType("Typography", brand.id) /]}
+{[ traverse typographyTokensTree property subgroups into typographyTokenGroup ]}
+  {[ if (isUsageToken(typographyTokenGroup)) ]}
+    {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+      {[ const typographyTokenInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+      {[ for typographyToken in typographyTokenInGroups ]}
+        {[ const camelcaseName = kebabToCamelCase(typographyToken.name) /]}
+        {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+        {[ const validTokenName = arrayJoin(validTokenPath, " ") /]}
+    <public name="{{ camelcase(validTokenName) }}" type="attr"/>
+    {[/]}
+  {[/]}
+{[/]}
+
+    <!-- Sizing -->
+{[ const sizingTokensTree = ds.tokenGroupTreeByType("Measure", brand.id) /]}
+{[ traverse sizingTokensTree property subgroups into sizingTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(sizingTokenGroup) /]}
+    {[ const sizingTokenInGroups = ds.tokensByGroupId(sizingTokenGroup.id) /]}
+    {[ for sizingToken in sizingTokenInGroups ]}
+      {[ const camelcaseName = kebabToCamelCase(sizingToken.name) /]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+      {[ const validTokenPathClipped = arraySplice(validTokenPath, 0, 1) /]}
+      {[ const validTokenPathClippedFinal = arraySplice(validTokenPathClipped, 0, 1) /]}
+      {[ const validTokenName = arrayJoin(validTokenPathClippedFinal, " ") /]}
+      {[ if (isUsageSizingToken(validTokenName)) ]}
+    <public name="{{ camelcaseWithZeros(validTokenName) }}" type="attr"/>
+      {[/]}
+  {[/]}
+{[/]}
+</resources>

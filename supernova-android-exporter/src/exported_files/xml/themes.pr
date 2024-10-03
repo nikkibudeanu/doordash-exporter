@@ -1,0 +1,51 @@
+{[ let tokenTypes = getTokenTypes() /]}
+{[ tokenTypes = sortTokenTypes(tokenTypes) /]}
+
+{[ let defaultThemeFilePath = generateThemeFilePath(context.themeName) /]}
+{[ emit file defaultThemeFilePath ]}
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATED FILE, PLEASE DO NOT EDIT -->
+<resources>
+    <style name="{{ getThemeResourceId(context.themeName) }}" parent="{{ getParentThemeResourceId(context.themeName) }}">
+  {[ for tokenType in tokenTypes ]}
+      {[ const themeTokensForType = getThemeTokens(context.tokens, tokenType.supernovaTokenType, tokenType.prismTokenType) /]}
+      {[ const themeContextForType = generateContextObject(context.themeName, themeTokensForType, undefined, tokenType) /]}
+      {[ if (tokenType.prismTokenType === "color") ]}
+        <!-- {{ tokenType.supernovaTokenType }} -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+      {[ if (tokenType.prismTokenType === "type") ]}
+        <!-- {{ tokenType.supernovaTokenType }} -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+      {[ if (tokenType.prismTokenType === "sizing") ]}
+        <!-- Sizing -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+      {[ if (tokenType.prismTokenType === "spacing") ]}
+        <!-- Spacing -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+      {[ if (tokenType.prismTokenType === "fontSize") ]}
+        <!-- Font Size -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+      {[ if (tokenType.prismTokenType === "borderWidth") ]}
+        <!-- Border width -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+      {[ if (tokenType.prismTokenType === "borderRadius") ]}
+        <!-- Border radius -->
+        {[ const tokenOutput = createThemeEntries(themeContextForType.tokens, themeContextForType.tokenType.prismTokenType, context.themeName) /]}
+        {{ tokenOutput }}
+      {[/]}
+  {[/]}
+    </style>
+</resources>
+{[/]}

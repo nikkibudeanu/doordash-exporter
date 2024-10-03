@@ -1,0 +1,39 @@
+package com.doordash.android.prism.compose.foundation.dimens
+
+/* GENERATED FILE, PLEASE DO NOT EDIT */
+
+import androidx.compose.ui.unit.Dp
+import androidx.compose.foundation.shape.CornerSize
+
+/**
+ * Prism's semantic corner size names. Implement this interface and provide the corner size values
+ * in order to create a complete corner size definition for a Prism theme variant.
+ */
+interface PrismDimensInterface {
+{[ const brand = ds.currentBrand() /]}
+{[ const sizingTokensTree = ds.tokenGroupTreeByType("Measure", brand.id) /]}
+{[ traverse sizingTokensTree property subgroups into typographyTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(typographyTokenGroup) /]}
+    {[ const sizingTokensInGroups = ds.tokensByGroupId(typographyTokenGroup.id) /]}
+    {[ for sizingToken in sizingTokensInGroups ]}
+      {[ const camelcaseName = kebabToCamelCase(sizingToken.name) /]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+      {[ const validTokenPathClipped = arraySplice(validTokenPath, 0, 1) /]}
+      {[ const validTokenPathClippedFinal = arraySplice(validTokenPathClipped, 0, 1) /]}
+      {[ const validTokenName = arrayJoin(validTokenPathClippedFinal, " ") /]}
+    val {{ camelcaseWithZeros(validTokenName) }}: Dp
+  {[/]}
+{[/]}
+{[ const borderRadiusTokensTree = ds.tokenGroupTreeByType("Radius", brand.id) /]}
+{[ traverse borderRadiusTokensTree property subgroups into borderRadiusTokenGroup ]}
+  {[ let validTokenGroupPath = createFullTokenGroupPath(borderRadiusTokenGroup) /]}
+    {[ const borderRadiusTokensInGroups = ds.tokensByGroupId(borderRadiusTokenGroup.id) /]}
+    {[ for borderRadiusToken in borderRadiusTokensInGroups ]}
+      {[ const camelcaseName = kebabToCamelCase(borderRadiusToken.name) /]}
+      {[ const validTokenPath = arrayConcat(validTokenGroupPath, camelcaseName) /]}
+      {[ const validTokenPathClipped = arraySplice(validTokenPath, 0, 1) /]}
+      {[ const validTokenName = arrayJoin(validTokenPathClipped, " ") /]}
+    val {{ camelcase(validTokenName) }}: CornerSize
+  {[/]}
+{[/]}
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Prism DevTools",
+  "id": "939014606716596091",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"]
+}
